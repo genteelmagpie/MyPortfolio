@@ -1,13 +1,4 @@
-/*!
- * jquery.counterup.js 2.1.0
- *
- * Copyright 2013, Benjamin Intal http://gambit.ph @bfintal
- * Released under the GPL v2 License
- *
- * Amended by Jeremy Paris, Ciro Mattia Gonano and others
- *
- * Date: Feb 24, 2017
- */
+
 (function ($) {
     "use strict";
 
@@ -15,15 +6,15 @@
 
         // Defaults
         var settings = $.extend({
-                'time': 400,
-                'delay': 10,
-                'offset': 100,
-                'beginAt': 0,
-                'formatter': false,
-                'context': 'window',
-                callback: function () {
-                }
-            }, options),
+            'time': 400,
+            'delay': 10,
+            'offset': 100,
+            'beginAt': 0,
+            'formatter': false,
+            'context': 'window',
+            callback: function () {
+            }
+        }, options),
             s;
 
         return this.each(function () {
@@ -115,7 +106,7 @@
             $this.waypoint(function (direction) {
                 counterUpper();
                 this.destroy(); //-- Waypoint 3.0 version of triggerOnce
-            }, {offset: counter.offset + "%", context: counter.context});
+            }, { offset: counter.offset + "%", context: counter.context });
         });
 
     };

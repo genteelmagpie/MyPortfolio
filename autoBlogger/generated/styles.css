@@ -8,21 +8,21 @@ body {
     color: rgb(113, 208, 255);
 }
 
-#title {
+#header {
     color: rgb(219, 237, 248);
     background-color: #676767;
     margin: 1% 5%;
 }
 
-#blogTitleImage {
-    background-color: #525253;
+#titleImage {
     margin: 1% 5%;
-    text-align: right;
-    max-width: 100%;
-    height: auto;
-
+    background-color: #525253;
+    text-align: center;
 }
 
+#blogTitleIMage {
+    size: 50%
+}
 
 #blog {
     background-color: #676767;

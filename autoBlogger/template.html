@@ -7,23 +7,27 @@
 </head>
 
 <body>
-    <header>
-        <img src="{{ image }}" alt="Blog Title Image">
-        <h1>{{ title }}</h1>
-    </header>
+    <section id='header'>
+        <header>
+            <h1 id='title'>{{ title }}</h1>
+            <img id = 'blogTitleImage' src="{{ image }}" alt="Blog Title Image">
+        </header>
+    </section>
 
     <section id="blog" class="blog-post">
-        <p id="intro">{{ intro }}</p>
-        <div id="pstyle" class="blog-content">
+        <p id="date">{{ date }}</p>
+        <div id="blogPostDiv" class="blog-content">
             {% for paragraph in content %}
-            <p>{{ paragraph }}</p>
+            <p id='blogPara'>{{ paragraph }}</p>
             {% endfor %}
         </div>
     </section>
+    <section id='footer'>
+        <footer>
+            <p>Author: Aniket Jha</p>
+        </footer>
+    </section>
 
-    <footer>
-        <p>Author: Aniket Jha</p>
-    </footer>
 </body>
 
 </html>
