@@ -1,7 +1,9 @@
 from os.path import exists
 import csv
 
-pathToDatabase = r"./database/database.csv"
+pathToDatabase = "database/database.csv"
+
+
 def writeToCSV(data):
     """Appends data to a CSV file without duplicates.
 
@@ -30,7 +32,8 @@ def writeToCSV(data):
 
             # Check if the data is already present in the CSV file. If not, append it.
             if tuple(data.values()) not in existing_data:
-                csvWriter.writerow([data['name'], data['email'], data['subject'], data['message']])
+                csvWriter.writerow(
+                    [data['name'], data['email'], data['subject'], data['message']])
                 return 1
             else:
                 return -1
