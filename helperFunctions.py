@@ -1,7 +1,10 @@
 from os.path import exists
 import csv
+from pathlib import Path
 
-pathToDatabase = "database/database.csv"
+THIS_FOLDER = Path(__file__).parent.resolve()
+
+pathToDatabase = THIS_FOLDER / "database/database.csv"
 
 
 def writeToCSV(data):
