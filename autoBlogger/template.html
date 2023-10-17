@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{{ title }}</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <img src="{{ image }}" alt="Blog Title Image">
+        <h1>{{ title }}</h1>
+    </header>
+
+    <section id="blog" class="blog-post">
+        <p id="intro">{{ intro }}</p>
+        <div id="pstyle" class="blog-content">
+            {% for paragraph in content %}
+            <p>{{ paragraph }}</p>
+            {% endfor %}
+        </div>
+    </section>
+
+    <footer>
+        <p>Author: Aniket Jha</p>
+    </footer>
+</body>
+
+</html>

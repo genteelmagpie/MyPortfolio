@@ -1,0 +1,8 @@
+title: This is my blog title
+image: .\static\img\post-2.jpg
+intro: Introduction - This is the Introduction
+
+content:
+Paragraph 1: This is the first paragraph of the blog content.
+Paragraph 2: This is the second paragraph.
+Paragraph 3: And here is the third paragraph.
