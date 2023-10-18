@@ -1,5 +1,5 @@
 title: Not Going Back Again - Embracing Change Post-Pandemic
-image: ..\media\images\notGoingBackAgain.jpeg
+image: ../static/blogImages/notGoingBackAgain.jpg
 date: 17 Oct, 2023
 
 H2: Introduction:

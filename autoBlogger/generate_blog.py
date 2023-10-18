@@ -1,8 +1,9 @@
 
 from jinja2 import Environment, FileSystemLoader
 import re
-from os.path import join
-from os.path import join, exists
+from os.path import join, isfile
+from os import listdir
+from pathlib import Path
 from TheGlobalModules.clearscreen import clear
 
 
@@ -10,12 +11,12 @@ from TheGlobalModules.clearscreen import clear
 env = Environment(loader=FileSystemLoader(
     r'D:\GM\Coding\PythonProjects\MyPortfolio\autoBlogger'))
 template = env.get_template('template.html')
-folPath = r"D:\GM\Coding\PythonProjects\MyPortfolio\autoBlogger"
+folPath = r"D:\GM\Coding\PythonProjects\MyPortfolio\templates"
 
 clear()
 
 
-filePath = "./autoBlogger/blog_content.txt"
+filePath = "./autoBlogger/blogContent.txt"
 
 tags = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'img']
 
@@ -23,20 +24,15 @@ tags = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'img']
 def processLine(line):
 
     try:
-        if line.count(":") == 1:
-            lineParts = [i for i in line.split(":") if i]
+        lineParts = [i for i in line.split(":") if i]
+        if lineParts[0].lower().strip() in tags:
             key = lineParts[0].strip().lower()
-            value = lineParts[1].strip()
+            colIndex = line.find(":")
+            value = line[colIndex + 1:].strip()
             return key, value
         else:
-            lineParts = [i for i in line.split(":") if i]
-            if lineParts[0].lower().strip() in tags:
-                key = lineParts[0].strip().lower()
-                colIndex = line.find(":")
-                value = line[colIndex + 1:].strip()
-                return key, value
-            else:
-                return 'p', line.strip()
+            return 'p', line.strip()
+
     except IndexError:
         print(f" Got an index error with the line: \n\n {line}")
 
@@ -58,9 +54,32 @@ def sanitize_title_for_filename(title):
     title = title.replace(" ", "_")
 
     # Convert the title to lowercase.
-    title = title.lower()
+    halfName = title.lower()
 
-    return f"{title}.html"
+    return halfName
+
+
+def determineFileName(title):
+    halfName = sanitize_title_for_filename(title)
+    gotAtLeastOneFile = False
+    allIndexValues = []
+    for each in listdir(folPath):
+        name = Path(each).stem
+        if isfile(join(folPath, each)):
+            if "." in name:
+                gotAtLeastOneFile = True
+                indexValue = [i.strip() for i in name.split(".") if i][0]
+                allIndexValues.append(indexValue)
+
+    try:
+        allIndexValuesInt = [int(i) for i in allIndexValues if i]
+    except ValueError:
+        pass
+    if gotAtLeastOneFile:
+        maxVal = max(allIndexValuesInt)
+        return f"{maxVal+1:04d}. {halfName}.html"
+    else:
+        return f"{0:04d}. {halfName}.html"
 
 
 with open(filePath, 'r', encoding='utf-8', errors='raise') as file:
@@ -76,9 +95,10 @@ with open(filePath, 'r', encoding='utf-8', errors='raise') as file:
         if data.index(each) <= 2:
             colNum = each.count(":")
             if colNum != 1:
-                print(f" Something is wrong with {each}. There is more than one colon in the item.")
+                print(
+                    f" Something is wrong with {each}. There is more than one colon in the item.")
             key, value = each.strip().split(':')
-            blogContent[key] = value
+            blogContent[key] = value.strip()
 
     # Generate paragraph part of the blog.
 
@@ -101,8 +121,7 @@ with open(filePath, 'r', encoding='utf-8', errors='raise') as file:
 rendered_content = template.render(blogContent)
 
 # Save the rendered content to an HTML file
-filePath = join(folPath, 'generated',
-                sanitize_title_for_filename(blogContent['title']))
+filePath = join(folPath, determineFileName(blogContent['title']))
 with open(filePath, 'w') as file:
     file.write(rendered_content)
 

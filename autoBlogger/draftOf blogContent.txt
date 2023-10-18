@@ -1,0 +1,5 @@
+title: The Title of the Blog (avoid colon in the title)
+image: (Path to the blog image) For example - ..\media\images\breakfast.jpg
+date: 18 Oct, 2023
+
+Content From This Line
