@@ -3,30 +3,42 @@
 
 <head>
     <title>{{ title }}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Taviraj:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Trirong:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 
-<body>
-    <section id='header'>
-        <header>
-            <h1 id='title'>{{ title }}</h1>
-            <img id = 'blogTitleImage' src="{{ image }}" alt="Blog Title Image">
-        </header>
-    </section>
+<body class = 'animated-gradient'>
+    <div class = 'container'>
+        <section id='header'>
+            <div class = "header">
+                <h1 id='title'>{{ title }}</h1>
+                
+            </div>
+        </section>
+    
+        <section id="blog" class="blog-post">
+            <div class = "blog">
+                <img id='blogTitleImage' src="{{ image }}" alt="Blog Title Image">
+                <p id = 'date'> {{ date }} </p>
+                
+                {% for item in bodyList %}
+                {% if item.keys() | count == 1 %}
+                <{{ item.keys() | first }}>{{ item.values() | first }}</{{ item.keys() | first }}>
+                {% else %}
+                <p>{{ item.values() | first }}</p>
+                {% endif %}
+                {% endfor %}
+            </div>
 
-    <section id="blog" class="blog-post">
-        <p id="date">{{ date }}</p>
-        <div id="blogPostDiv" class="blog-content">
-            {% for paragraph in content %}
-            <p id='blogPara'>{{ paragraph }}</p>
-            {% endfor %}
-        </div>
-    </section>
-    <section id='footer'>
-        <footer>
-            <p>Author: Aniket Jha</p>
-        </footer>
-    </section>
+        </section>
+        <section id = 'footer'>
+            <div class = 'footer'>
+                <p> Author: Aniket Jha</p>
+            </div>
+        </section>
+    </div>
 
 </body>
 

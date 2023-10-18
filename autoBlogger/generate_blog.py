@@ -2,6 +2,8 @@
 from jinja2 import Environment, FileSystemLoader
 import re
 from os.path import join
+from os.path import join, exists
+from TheGlobalModules.clearscreen import clear
 
 
 # Load the template
@@ -9,6 +11,34 @@ env = Environment(loader=FileSystemLoader(
     r'D:\GM\Coding\PythonProjects\MyPortfolio\autoBlogger'))
 template = env.get_template('template.html')
 folPath = r"D:\GM\Coding\PythonProjects\MyPortfolio\autoBlogger"
+
+clear()
+
+
+filePath = "./autoBlogger/blog_content.txt"
+
+tags = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'img']
+
+
+def processLine(line):
+
+    try:
+        if line.count(":") == 1:
+            lineParts = [i for i in line.split(":") if i]
+            key = lineParts[0].strip().lower()
+            value = lineParts[1].strip()
+            return key, value
+        else:
+            lineParts = [i for i in line.split(":") if i]
+            if lineParts[0].lower().strip() in tags:
+                key = lineParts[0].strip().lower()
+                colIndex = line.find(":")
+                value = line[colIndex + 1:].strip()
+                return key, value
+            else:
+                return 'p', line.strip()
+    except IndexError:
+        print(f" Got an index error with the line: \n\n {line}")
 
 
 def sanitize_title_for_filename(title):
@@ -33,42 +63,46 @@ def sanitize_title_for_filename(title):
     return f"{title}.html"
 
 
-# Read blog content from the text file
-with open('./autoBlogger/blog_content.txt', 'r') as file:
-    blog_content = {}
-    lines = file.readlines()
-    content_started = False
-    content_lines = []
+with open(filePath, 'r', encoding='utf-8', errors='raise') as file:
+
+    data = [i for i in file.read().split("\n")]
+    content = [i for i in data[3:] if i]
+    blogContent = {}
+    bodyPart = {}
+    body = []
     stopSplitting = False
-    for lno, line in enumerate(lines):
 
-        if line.strip():
+    for each in data:
+        if data.index(each) <= 2:
+            colNum = each.count(":")
+            if colNum != 1:
+                print(f" Something is wrong with {each}. There is more than one colon in the item.")
+            key, value = each.strip().split(':')
+            blogContent[key] = value
 
-            try:
-                if not stopSplitting:
-                    key, value = line.strip().split(': ')
-                    blog_content[key] = value
-                else:
-                    value = line.strip()
-            except ValueError as e:
-                key = 'content'
-                stopSplitting = True
-                content_started = True
-                print(e)
-                continue
+    # Generate paragraph part of the blog.
 
-            if content_started and line.strip():
-                content_lines.append(line.strip())
+    for each in content:
+        # print(f" Working with {each[:15]}")
+        if ':' in each:
+            key, value = processLine(each)
+            bodyPart[key] = value
+        else:
+            bodyPart['p'] = each.strip()
 
-    blog_content['content'] = content_lines
+        # copy the bodyPart dictionary before appending it to the body list**
+        body.append(bodyPart.copy())
+        bodyPart.clear()
 
-print(blog_content.keys())
+    blogContent['bodyList'] = body
+
+
 # Render the template with the blog content
-rendered_content = template.render(blog_content)
+rendered_content = template.render(blogContent)
 
 # Save the rendered content to an HTML file
 filePath = join(folPath, 'generated',
-                sanitize_title_for_filename(blog_content['title']))
+                sanitize_title_for_filename(blogContent['title']))
 with open(filePath, 'w') as file:
     file.write(rendered_content)
 
