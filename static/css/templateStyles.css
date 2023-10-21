@@ -43,6 +43,7 @@ h5{
   
 }
 
+
 /* The code below will generate an animated gradient background to whichever element it is attached to. */
 
 .animated-gradient {
@@ -132,10 +133,12 @@ h5{
 
 .footer {
   /* padding: 0 1%;   */
+  text-align: center;
   grid-row: 3;
   background-color: #67676700;
   
 }
+
 
 .footer p {
   margin: 10px;
@@ -143,6 +146,40 @@ h5{
   text-align: center;
   color: rgb(243, 255, 178); 
 } 
+
+.footer{
+  display: block;
+  justify-content: center;
+}
+/* The button should be centered on the page and should have 'Go Back' as the text on the button. */
+.goBack{
+  
+  font-family: 'Taviraj', serif;
+  margin: 0 auto;
+  padding: 10px;
+  background-color: #a297a450;
+  border: none;
+  border-radius: 5px;
+  color: #f9f9f9;
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s;
+  margin: 10px;
+}
+.goBack:hover{
+  color: #614c65;
+  background-color: aliceblue;
+}
+.goBack:active{
+  color: #615772;
+}
+.goBack:visited{
+  color: #545967;
+}
+.backIcon{
+  margin-right : 5px;
+}
 
 /* Media queries for different screen sizes. */
 
