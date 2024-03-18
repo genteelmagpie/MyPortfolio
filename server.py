@@ -23,12 +23,12 @@ def submit_form():
         retVal = writeToCSV(data)
         if retVal == 1:
             sendEmail(data)
-            return ' Thank you for reaching out. We will get in touch shortly.'
+            return 'OK'
         elif retVal == -1:
-            return " Thank you for reaching out again. We will contant you shortly."
+            return "OK2"
         elif retVal == 0:
-            return " Submission of the form was not completed. Try again later."
+            return "ERRORS"
         else:
-            return " Form Submission failed. "
+            return "ERRORS"
     else:
         return "Something went wrong. Data was not sent."
