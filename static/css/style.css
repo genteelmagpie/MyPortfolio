@@ -505,7 +505,7 @@ a:hover {
 /* Color of the navbar once it is not transparent. */
 .navbar-b.navbar-reduce {
   transition: all .5s ease-in-out;
-  background-color: #474545;
+  background-color: #47454597;
   padding-top: 15px;
   padding-bottom: 15px;
 }

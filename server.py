@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 from helperFunctions import writeToCSV
+from helperFunctionsTwo import sendEmail
 
 app = Flask(__name__)
 
@@ -18,8 +19,10 @@ def html_page(page_name):
 def submit_form():
     if request.method == 'POST':
         data = request.form.to_dict()
+        print(data)
         retVal = writeToCSV(data)
         if retVal == 1:
+            sendEmail(data)
             return ' Thank you for reaching out. We will get in touch shortly.'
         elif retVal == -1:
             return " Thank you for reaching out again. We will contant you shortly."
