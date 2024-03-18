@@ -14,6 +14,8 @@ def home_page():
 def html_page(page_name):
     return render_template(page_name)
 
+# The Submit Form Post Function is first writing to a csv file, then sending the same data to the portfolio email address and then also sending a success or error message (using javascript)
+
 
 @app.route('/submit_form', methods=['POST', 'GET'])
 def submit_form():
