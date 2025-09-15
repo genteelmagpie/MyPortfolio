@@ -24,7 +24,6 @@ def sendEmail(email_data):
     recipients_str = getenv('recipients')
     # Split the string into a list of recipients
     recipients = recipients_str.split(',')
-    ["aniketjhaportfolio@gmail.com", "jhainaparadise@gmail.com"]
     password = getenv('password')
 
     msg = MIMEText(body)
